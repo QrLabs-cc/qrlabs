@@ -13,6 +13,7 @@ import { createWebhook, fetchUserWebhooks, updateWebhook, deleteWebhook, fetchWe
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import DashboardSidebar from '@/components/DashboardSidebar';
+import FloatingCircles from '@/components/FloatingCircles';
 
 const WebhookManagement = () => {
   const [showCreateDialog, setShowCreateDialog] = useState(false);
@@ -131,11 +132,25 @@ const WebhookManagement = () => {
     }
   };
 
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarCollapsed(!sidebarCollapsed);
+  };
+
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <DashboardSidebar />
+    <div className="flex min-h-screen">
+      <FloatingCircles />
       
-      <div className="flex-1 p-8">
+      {/* Sidebar */}
+      <div className={`${sidebarCollapsed ? 'w-16' : 'w-64'} bg-background border-r border-border h-screen fixed top-0 left-0 transition-all duration-200 z-10`}>
+        <DashboardSidebar 
+          sidebarCollapsed={sidebarCollapsed}
+          toggleSidebar={toggleSidebar}
+        />
+      </div>
+      
+      <div className={`flex-1 transition-all duration-200 ${sidebarCollapsed ? 'ml-16' : 'ml-64'} p-8`}>
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
             <h1 className="text-3xl font-bold">Webhook Management</h1>
