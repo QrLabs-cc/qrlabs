@@ -1,0 +1,186 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 151 49% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 157 79% 80%;
+    --secondary-foreground: 0 0% 4%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 151 49% 40%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Improved container styles for better responsive design */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Mobile first responsive adjustments */
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1400px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1600px;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+}
+
+/* Large screen optimizations for 4K and ultra-wide displays */
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1800px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+  
+  html {
+    font-size: 18px; /* Slightly larger base font for better readability on large screens */
+  }
+}
+
+/* Ultra-wide and 4K display optimizations */
+@media (min-width: 2560px) {
+  .container {
+    max-width: 2400px;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  
+  html {
+    font-size: 20px; /* Even larger font for ultra-wide displays */
+  }
+}
+
+/* Mobile optimizations - enhanced */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Better spacing for mobile elements */
+  .card {
+    padding: 1rem !important;
+  }
+  
+  /* Improved mobile form layouts */
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents iOS zoom */
+  }
+  
+  /* Ensure buttons are easier to tap */
+  button, .button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.floating-circles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.circle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0) 70%);
+  border-radius: 50%;
+  animation: float 6s infinite;
+}
+
+/* Animation for floating circles */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-10px) translateX(10px);
+  }
+  50% {
+    transform: translateY(5px) translateX(-5px);
+  }
+  75% {
+    transform: translateY(10px) translateX(5px);
+  }
+}
