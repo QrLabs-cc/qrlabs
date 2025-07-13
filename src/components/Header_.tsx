@@ -93,16 +93,32 @@ const Header = () => {
   };
 
   const navigationItems = [
-    { path: "/dashboard", label: "Dashboard", icon: Home },
-    { path: "/dynamic-qr", label: "Dynamic QR", icon: QrCode },
-    { path: "/generate", label: "Create QR", icon: QrCode },
-    { path: "/barcode", label: "Create Barcode", icon: Barcode },
+    { path: "/dashboard", label: "Return to Dashboard", icon: Home },
+    // { path: "/dynamic-qr", label: "Dynamic QR", icon: QrCode },
+    // { path: "/generate", label: "Create QR", icon: QrCode },
+    // { path: "/barcode", label: "Create Barcode", icon: Barcode },
   ];
 
+  const guestNavigationItems = [
+    { path: "/guides", label: "Guides" },
+    { path: "/scan", label: "Scan" },
+  ];
 
   return (
-    <header>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled || !isHomePage
+          ? "bg-background/95 backdrop-blur-md shadow-sm border-b"
+          : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto px-4 flex h-16 items-center justify-between">
+        <div className="flex items-center">
+          <Link to="/" className="flex items-center gap-2">
+            <Logo />
+            <span className="text-xl font-bold text-foreground">QrLabs</span>
+          </Link>
+        </div>
 
         <div className="flex items-center gap-2">
           {user ? (
@@ -177,7 +193,7 @@ const Header = () => {
               </div>
 
               {/* Desktop User Menu */}
-              <div className="hidden lg:block">
+              <div className="hidden lg:block sticky top-0 z-10 backdrop-blur-sm">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="flex items-center gap-2 px-3">
@@ -214,6 +230,17 @@ const Header = () => {
             </>
           ) : (
             <>
+              {/* Guest Navigation */}
+              <div className="hidden md:flex md:items-center md:gap-2">
+                {guestNavigationItems.map((item) => (
+                  <Button key={item.path} variant="ghost" size="sm" asChild>
+                    <Link to={item.path}>
+                      {item.label}
+                    </Link>
+                  </Button>
+                ))}
+              </div>
+
               {/* Mobile Guest Menu */}
               <div className="md:hidden">
                 <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -226,6 +253,29 @@ const Header = () => {
                     <SheetHeader className="pb-6">
                       <SheetTitle>Menu</SheetTitle>
                     </SheetHeader>
+                    
+                    <div className="flex flex-col space-y-2">
+                      {guestNavigationItems.map((item) => (
+                        <Button
+                          key={item.path}
+                          variant="ghost"
+                          className="justify-start h-12 text-base"
+                          onClick={() => handleNavigation(item.path)}
+                        >
+                          {item.label}
+                        </Button>
+                      ))}
+                      
+                      <div className="border-t pt-4 mt-4">
+                        <Button
+                          className="w-full h-12 text-base"
+                          onClick={() => handleNavigation("/signin")}
+                        >
+                          <User className="h-5 w-5 mr-3" />
+                          Sign in
+                        </Button>
+                      </div>
+                    </div>
                   </SheetContent>
                 </Sheet>
               </div>
